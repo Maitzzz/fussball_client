@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 well">
+      <h1> {{ game.game.id }}</h1>
+
+      <div class="panel panel-primary" ng-repeat="match in game.matches">
+        <!-- Default panel contents -->
+        <div class="panel-heading"> {{ match.id }}</div>
+        <div class="panel-body">
+          <p>Winning team {{ match.winning_team }}</p>
+        </div>
+
+        <!-- Table -->
+        <table class="table">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Owner</th>
+            <th>Team</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr ng-repeat="goal in match.goals">
+            <th scope="row"> {{ goal.id }}</th>
+            <td> {{ goal.owner }}</td>
+            <td> {{ goal.team }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

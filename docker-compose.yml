@@ -1,0 +1,16 @@
+httpd:
+  image: fenomen/httpd:latest
+  hostname: httpd
+  ports:
+    - "80"
+    - "443"
+  volumes_from:
+    - httpdata
+  environment:
+    - VHOST=fussballapi
+    - INDEXES=On
+httpdata:
+  image: fenomen/data:latest
+  hostname: httpdata
+  volumes:
+    - .:/httpd/data

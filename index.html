@@ -1,0 +1,32 @@
+<html ng-app="testPage">
+<head>
+  <title>Test</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body ng-controller="mainController">
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="scripts/module/module.js"></script>
+<script src="scripts/service/service.js"></script>
+<script src="scripts/routes/routes.js"></script>
+<script src="scripts/controller/mainController.js"></script>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Main <span class="sr-only">(current)</span></a></li>
+        <li><a href="#games">Games</a></li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container-fluid -->
+</nav>
+
+<div class="content content-body" ng-view>
+</div>
+</body>
+</html>
