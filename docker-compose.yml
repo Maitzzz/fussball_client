@@ -1,16 +1,23 @@
-httpd:
-  image: fenomen/httpd:latest
-  hostname: httpd
+# Configuration generated with Drupal Compose version 1.1.1
+apache:
+  extends:
+    file: host.yml
+    service: apache
+  image: dockerizedrupal/apache-2.4:1.1.1
+  hostname: apache
   ports:
     - "80"
     - "443"
   volumes_from:
-    - httpdata
+    - apache-data
   environment:
-    - VHOST=fussballapi
-    - INDEXES=On
-httpdata:
-  image: fenomen/data:latest
-  hostname: httpdata
+    - VHOST_PROJECT_NAME=fussballclient
+    - VHOST_PRIMARY_SERVICE=True
+    - VHOST_SERVICE_NAME=apache
+    - VHOST_VERSION_FILE_URL=https://raw.githubusercontent.com/dockerizedrupal/docker-apache-2.4/master/VERSION.md
+    - VHOST_REPOSITORY_URL=https://hub.docker.com/r/dockerizedrupal/apache-2.4/
+apache-data:
+  image: dockerizedrupal/data:1.1.0
+  hostname: apache-data
   volumes:
-    - .:/httpd/data
+    - .:/apache/data

@@ -19,4 +19,8 @@ app.service('testService', function ($http) {
   this.getTeam = function(id) {
     return $http.get(api + 'team/' + id);
   };
+
+  this.login = function() {
+    return $http.get(api + 'auth/google');
+  }
 });

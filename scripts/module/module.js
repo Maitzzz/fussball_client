@@ -1,1 +1,1 @@
-var app = angular.module('testPage', ['ngRoute']);
+var app = angular.module('testPage', ['ngRoute', 'ngWebsocket']);

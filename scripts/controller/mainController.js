@@ -5,7 +5,14 @@ app.controller('mainController', function ($scope) {
   $scope.testText = 'Test Text';
 });
 
-app.controller('homeController', function ($scope) {
+app.controller('homeController', function ($scope, testService) {
+
+  $scope.login = function()  {
+    testService.login().then(function(res) {
+      console.log(res);
+    });
+  };
+
   $scope.home = 'HOME';
 });
 
@@ -57,6 +64,28 @@ app.controller('gamesController', function ($scope, testService) {
       getGames();
     });
   };
-
-
 });
+app.run(function ($rootScope, $websocket) {
+  var ws = $websocket.$new('ws://127.0.0.1:4444')
+
+  .$on('$open', function() {
+    console.log('Connected to websocket!');
+  })
+
+  .on('$message', function(message) {
+    console.log(message);
+  });
+});
+
+/*
+app.factory('appData', function() {
+  var gameData;
+  return {
+    setData: function (data) {
+      gameData = data;
+    },
+    getData: function () {
+      return gameData;
+    }
+  }
+});*/

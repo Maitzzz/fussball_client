@@ -18,5 +18,10 @@ app.config(function ($routeProvider) {
       controller: 'gameController'
     })
 
+    .when('/test', {
+      templateUrl: 'views/test.html',
+      controller: 'testController'
+    })
+
     .otherwise({redirectTo: '/home'})
 });
