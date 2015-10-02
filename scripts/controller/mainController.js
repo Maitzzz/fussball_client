@@ -72,7 +72,7 @@ app.run(function ($rootScope, $websocket) {
     console.log('Connected to websocket!');
   })
 
-  .on('$message', function(message) {
+  .$on('$message', function(message) {
     console.log(message);
   });
 });
