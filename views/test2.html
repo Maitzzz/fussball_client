@@ -1,0 +1,32 @@
+<div ng-controller="MyCtrl" nv-file-drop="" uploader="uploader">
+
+  <div class="col-md-3">
+
+    <h3>Select files</h3>
+
+    <div ng-show="uploader.isHTML5">
+      <!-- 3. nv-file-over uploader="link" over-class="className" -->
+      <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
+        Base drop zone
+      </div>
+
+      <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
+      <div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
+        <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone">
+          Another drop zone with its own settings
+        </div>
+      </div>
+    </div>
+
+    <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+    Multiple
+    <input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>
+
+    Single
+    <input type="file" nv-file-select="" uploader="uploader" />
+  </div>
+  <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+    <span class="glyphicon glyphicon-upload"></span> Upload all
+  </button>
+</div>
+

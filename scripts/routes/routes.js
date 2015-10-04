@@ -19,7 +19,7 @@ app.config(function ($routeProvider) {
     })
 
     .when('/test', {
-      templateUrl: 'views/test.html',
+      templateUrl: 'views/test2.html',
       controller: 'testController'
     })
 
