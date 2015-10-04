@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-8 well">
+      <p>Game Winner {{ game.game.winning_team }}</p>
+      <div class="row">
+        <div class="col-md-6 team1">
+          <h1>Team 1({{team1.id}})</h1>
+          <button type="button" class="btn btn-default" ng-click="addGoal(team1.id, team1.player_one)">Player 1({{team1.player_one}})</button>
+          <button type="button" class="btn btn-default" ng-click="addGoal(team1.id, team1.player_two)">Player 2({{team1.player_two}})</button>
+        </div>
+        <div class="col-md-6 team2">
+          <h1>Team 2({{team2.id}})</h1>
+          <button type="button" class="btn btn-default" ng-click="addGoal(team2.id, team2.player_one)">Player 1({{team2.player_one}})</button>
+          <button type="button" class="btn btn-default" ng-click="addGoal(team2.id, team2.player_two)">Player 2({{team2.player_two}})</button>
+        </div>
+      </div>
+      <div class="panel panel-primary" ng-repeat="match in game.matches">
+        <div class="panel-heading"> {{ match.id }}</div>
+        <div class="panel-body">
+          <h3 ng-repeat="(team, stat) in match.stats">{{ team }} : {{ stat }}</h3>
+
+          <p>Winning team {{ match.winning_team }}</p>
+        </div>
+
+        <!-- Table -->
+        <table class="table">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Owner</th>
+            <th>Team</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr ng-repeat="goal in match.goals">
+            <th scope="row"> {{ goal.id }}</th>
+            <td> {{ goal.owner }}</td>
+            <td> {{ goal.team }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
