@@ -23,4 +23,8 @@ app.service('testService', function ($http) {
   this.login = function() {
     return $http.get(api + 'auth/google');
   }
+
+  this.getTempData = function() {
+    return $http.get('http://fussball.mait.fenomen.ee/test');
+  }
 });

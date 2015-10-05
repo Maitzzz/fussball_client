@@ -1,5 +1,17 @@
 <h1>GAME</h1>
 
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+       <p>{{game.game.team1.player_one.email}}</p>
+       <p>{{game.game.team1.player_two.email}}</p>
+    </div>
+    <div class="col-md-6">
+      <p>{{game.game.team2.player_one.email}}</p>
+      <p>{{game.game.team2.player_two.email}}</p>    </div>
+  </div>
+</div>
+
 <div class="col-md-12" ng-repeat="match in game.matches">
   <p>{{match.id}}</p>
   <ul>
