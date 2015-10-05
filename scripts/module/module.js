@@ -1,1 +1,1 @@
-var app = angular.module('testPage', ['ngRoute', 'ngWebsocket','angularFileUpload']);
+var app = angular.module('testPage', ['ngRoute', 'ngWebsocket','angularFileUpload', 'toastr']);

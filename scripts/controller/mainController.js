@@ -94,7 +94,10 @@ app.run(function ($rootScope, $websocket, appData, myService) {
           break;
 
         case 'error':
-
+          myService.errorHandler(message);
+          break;
+        case 'message':
+          myService.messageHandler(message);
           break;
       }
 
@@ -171,7 +174,7 @@ app.controller('timerController', function ($scope, appData, myService, $locatio
   },true);
 });
 
-app.controller('playersController', function ($scope, appData, myService, $location) {
+app.controller('playersController', function ($scope, appData, myService, $location, toastr) {
   $scope.$watch(function () {
     return appData.getStatus(); }
     , function (status, oldValue) {
@@ -179,6 +182,7 @@ app.controller('playersController', function ($scope, appData, myService, $locat
       $location.path(status);
     }
   },true);
+
 });
 
 app.controller('gameController', function ($scope, appData, myService, $location) {
@@ -227,12 +231,22 @@ app.factory('appData', function () {
 });
 
 
-app.factory('myService', function () {
+app.factory('myService', function (toastr) {
   return {
     errorHandler: function(error) {
       switch (error.error_type) {
         case 'not_enough_players':
-
+          toastr.error(error.message);
+          break;
+      }
+    },
+    messageHandler: function(message) {
+      switch (message.type) {
+        case 'notify':
+          toastr.success(message.message);
+          break;
+        default :
+          toastr.success(message.message);
           break;
       }
     }
