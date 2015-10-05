@@ -79,10 +79,26 @@ app.run(function ($rootScope, $websocket, appData, myService) {
     })
 
     .$on('$message', function (message) {
-      if (message.type == 'status') {
-        appData.setStatus(message.status);
-        $rootScope.$apply();
+      console.log(message);
+      switch (message.type) {
+        case 'status':
+          appData.setStatus(message.status);
+          break;
+
+        case 'timer_data':
+          appData.setTimerData(message.time_left);
+          break;
+
+        case 'game_data':
+          appData.setGameData(message.data);
+          break;
+
+        case 'error':
+
+          break;
       }
+
+      $rootScope.$apply();
     });
 });
 
@@ -146,6 +162,13 @@ app.controller('timerController', function ($scope, appData, myService, $locatio
         $location.path(status);
       }
     },true);
+
+
+  $scope.$watch(function () {
+    return appData.getTimerData();
+  }, function (status, oldValue) {
+    $scope.timer = status;
+  },true);
 });
 
 app.controller('playersController', function ($scope, appData, myService, $location) {
@@ -166,43 +189,51 @@ app.controller('gameController', function ($scope, appData, myService, $location
       $location.path(status);
     }
   },true);
+
+  $scope.$watch(function () {
+    return appData.getGameData();
+  }, function (status, oldValue) {
+    $scope.game = status;
+  },true);
+
 });
 
 
 app.factory('appData', function () {
   var gameStatus = '';
+  var gameData = {};
+  var timerData = {};
   return {
     setStatus: function (data) {
-      $scope.$watch(function () {
-          return appData.getStatus(); }
-        , function (status, oldValue) {
-          if ('/' + status != $location.path()) {
-            $location.path(status);
-          }
-        },true);
+      gameStatus = data;
     },
     getStatus: function () {
       return gameStatus;
+    },
+    setGameData: function(data) {
+      gameData = data;
+    },
+    getGameData: function() {
+      return gameData;
+    },
+    setTimerData: function(data) {
+      timerData = data;
+    },
+    getTimerData: function() {
+      return timerData;
     }
+
   };
 });
 
 
 app.factory('myService', function () {
   return {
-    findPath: function (status) {
-      switch (status) {
-        case 'timer_on':
-          return '/timer';
+    errorHandler: function(error) {
+      switch (error.error_type) {
+        case 'not_enough_players':
+
           break;
-        case 'game_on':
-          return '/game';
-          break;
-        case 'idle':
-          return '/players';
-          break;
-        default :
-          return '/players';
       }
     }
   };

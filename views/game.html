@@ -1,1 +1,9 @@
 <h1>GAME</h1>
+
+<div class="col-md-12" ng-repeat="match in game.matches">
+  <p>{{match.id}}</p>
+  <ul>
+    <li ng-repeat="goal in match.goals"> {{ goal.id}}</li>
+  </ul>
+</div>
+
