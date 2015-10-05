@@ -81,6 +81,7 @@ app.run(function ($rootScope, $websocket, appData, myService) {
     .$on('$message', function (message) {
       if (message.type == 'status') {
         appData.setStatus(message.status);
+        $rootScope.$apply();
       }
     });
 });
@@ -139,22 +140,18 @@ app.controller('MyCtrl', ['$scope', 'FileUploader', function ($scope, FileUpload
 
 app.controller('timerController', function ($scope, appData, myService, $location) {
   $scope.$watch(function () {
-    return appData.getStatus();
-  }, function (status, oldValue) {
-    if ('/' + status != $location.path()) {
-      $location.path(status);
-
-    }
-  },true);
+      return appData.getStatus(); }
+    , function (status, oldValue) {
+      if ('/' + status != $location.path()) {
+        $location.path(status);
+      }
+    },true);
 });
 
 app.controller('playersController', function ($scope, appData, myService, $location) {
-
-  $scope.data = appData.getStatus();
-
-  $scope.$watch('data', function (status, oldValue) {
-    console.log(status + 'watcherchange')
-    console.log('dasdasdassdasdsdasdasasasd')
+  $scope.$watch(function () {
+    return appData.getStatus(); }
+    , function (status, oldValue) {
     if ('/' + status != $location.path()) {
       $location.path(status);
     }
@@ -176,7 +173,13 @@ app.factory('appData', function () {
   var gameStatus = '';
   return {
     setStatus: function (data) {
-      gameStatus = data;
+      $scope.$watch(function () {
+          return appData.getStatus(); }
+        , function (status, oldValue) {
+          if ('/' + status != $location.path()) {
+            $location.path(status);
+          }
+        },true);
     },
     getStatus: function () {
       return gameStatus;
