@@ -200,10 +200,10 @@ app.controller('gameController', function ($scope, appData, myService, $location
     $scope.game = status;
   },true);
 
-  testService.getTempData().then(function(ret) {
+ /* testService.getTempData().then(function(ret) {
     $scope.game = ret.data;
     console.log(ret.data);
-  })
+  })*/
 });
 
 
