@@ -13,31 +13,16 @@ app.controller('homeController', function ($scope, appData) {
       console.log(res);
     });
   };
-
-
-
-  $scope.home = 'HOME';
 });
 
 app.controller('gameController1', function ($scope, $routeParams, testService) {
   var id = $routeParams.id;
-    console.log('fadfa')
   getGame(id);
 
   function getGame(id) {
     testService.getGame(id).then(function (game) {
-      $scope.game = game.data;
-      console.log(game.data.game.team1)
-    });
-  }
-
-  function getTeams(team1Id, team2Id) {
-    testService.getTeam(team1Id).then(function (team1) {
-      $scope.team1 = team1.data;
-    });
-
-    testService.getTeam(team2Id).then(function (team2) {
-      $scope.team2 = team2.data;
+      $scope.game = game.data.game;
+      $scope.matches = game.data.matches;
     });
   }
 
@@ -197,15 +182,14 @@ app.controller('gameController', function ($scope, appData, myService, $location
   $scope.$watch(function () {
     return appData.getGameData();
   }, function (status, oldValue) {
-    $scope.game = status;
+    $scope.game = status.game;
+    console.log(status.matches.length + 'esimene')
+    $scope.matches = status.matches;
+
+    $scope.lastMatch = status.matches[status.matches.length-1];
+
   },true);
-
- /* testService.getTempData().then(function(ret) {
-    $scope.game = ret.data;
-    console.log(ret.data);
-  })*/
 });
-
 
 app.factory('appData', function () {
   var gameStatus = '';
