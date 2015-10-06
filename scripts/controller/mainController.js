@@ -21,13 +21,13 @@ app.controller('homeController', function ($scope, appData) {
 
 app.controller('gameController1', function ($scope, $routeParams, testService) {
   var id = $routeParams.id;
-
+    console.log('fadfa')
   getGame(id);
 
   function getGame(id) {
     testService.getGame(id).then(function (game) {
       $scope.game = game.data;
-      getTeams(game.data.game.team1, game.data.game.team2);
+      console.log(game.data.game.team1)
     });
   }
 

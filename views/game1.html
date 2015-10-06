@@ -6,13 +6,13 @@
       <div class="row">
         <div class="col-md-6 team1">
           <h1>Team 1({{team1.id}})</h1>
-          <button type="button" class="btn btn-default" ng-click="addGoal(team1.id, team1.player_one)">Player 1({{team1.player_one}})</button>
-          <button type="button" class="btn btn-default" ng-click="addGoal(team1.id, team1.player_two)">Player 2({{team1.player_two}})</button>
+          <button type="button" class="btn btn-default" ng-click="addGoal(game.game.team1.id, game.game.team1.data.player_one.user_id)">Player 1({{game.game.team1.data.player_one.user_id}})</button>
+          <button type="button" class="btn btn-default" ng-click="addGoal(game.game.team1.id, game.game.team1.data.player_two.user_id)">Player 2({{game.game.team1.data.player_two.user_id}})</button>
         </div>
         <div class="col-md-6 team2">
           <h1>Team 2({{team2.id}})</h1>
-          <button type="button" class="btn btn-default" ng-click="addGoal(team2.id, team2.player_one)">Player 1({{team2.player_one}})</button>
-          <button type="button" class="btn btn-default" ng-click="addGoal(team2.id, team2.player_two)">Player 2({{team2.player_two}})</button>
+          <button type="button" class="btn btn-default" ng-click="addGoal(game.game.team2.id, game.game.team2.data.player_one.user_id)">Player 1({{game.game.team2.data.player_one.user_id}})</button>
+          <button type="button" class="btn btn-default" ng-click="addGoal(game.game.team2.id, game.game.team2.data.player_two.user_id)">Player 2({{game.game.team2.data.player_two.user_id}})</button>
         </div>
       </div>
       <div class="panel panel-primary" ng-repeat="match in game.matches">
