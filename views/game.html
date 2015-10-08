@@ -2,14 +2,44 @@
 
 <div class="container">
   <div class="row">
+
     <div class="col-md-6">
-      <img src="https://diasp.eu/assets/user/default.png">
-       <p>{{game.game.team1.player_one.email}}</p>
-       <p>{{game.game.team1.player_two.email}}</p>
+      <div class="col-md-8">
+        <img src="https://diasp.eu/assets/user/default.png">
+      </div>
+      <div class="col-md-4">
+        <p>{{game.team1.data.player_one.email}}</p>
+      </div>
     </div>
+
     <div class="col-md-6">
-      <p>{{game.game.team2.player_one.email}}</p>
-      <p>{{game.game.team2.player_two.email}}</p>
+      <div class="col-md-8">
+        <img src="https://diasp.eu/assets/user/default.png">
+      </div>
+      <div class="col-md-4">
+        <p>{{game.team2.data.player_two.email}}</p>
+      </div>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="col-md-8">
+        <img src="https://diasp.eu/assets/user/default.png">
+      </div>
+      <div class="col-md-4">
+        <p>{{game.team1.data.player_two.email}}</p>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="col-md-8">
+        <img src="https://diasp.eu/assets/user/default.png">
+      </div>
+      <div class="col-md-4">
+        <p>{{game.team2.data.player_one.email}}</p>
+      </div>
+    </div>
+  </div>
+
 </div>

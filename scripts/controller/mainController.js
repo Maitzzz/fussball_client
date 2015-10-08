@@ -183,10 +183,12 @@ app.controller('gameController', function ($scope, appData, myService, $location
     return appData.getGameData();
   }, function (status, oldValue) {
     $scope.game = status.game;
-    console.log(status.matches.length + 'esimene')
     $scope.matches = status.matches;
 
-    $scope.lastMatch = status.matches[status.matches.length-1];
+    if (status.matches != undefined) {
+      $scope.lastMatch = status.matches[status.matches.length - 1];
+      var rer = $scope.game.team1.data.player_one.user_id;
+    }
 
   },true);
 });
