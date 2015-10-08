@@ -1,9 +1,15 @@
 /**
  * Created by mait on 13.09.15.
  */
-app.controller('mainController', function ($scope, appData) {
+app.controller('mainController', function ($scope, appData, testService, $location) {
   $scope.testText = 'Test Text';
-
+  $scope.drawGame = function() {
+    console.log('11321321312dasdad')
+    testService.startDraw().then(function(rt) {
+      console.log('dasdad')
+      $location.path('timer');
+    })
+  }
 });
 
 app.controller('homeController', function ($scope, appData) {
@@ -185,9 +191,21 @@ app.controller('gameController', function ($scope, appData, myService, $location
     $scope.game = status.game;
     $scope.matches = status.matches;
 
+    var team1_player1 = $scope.game.team1.data.player_one.user_id;
+    var team1_player2 = $scope.game.team1.data.player_two.user_id;
+
+    var team2_player1 = $scope.game.team2.data.player_one.user_id;
+    var team2_player2 = $scope.game.team2.data.player_two.user_id;
+
     if (status.matches != undefined) {
       $scope.lastMatch = status.matches[status.matches.length - 1];
-      var rer = $scope.game.team1.data.player_one.user_id;
+      console.log($scope.lastMatch)
+      $scope.team1_player1 = $scope.lastMatch.goals[team1_player1];
+      $scope.team1_player2 = $scope.lastMatch.goals[team1_player2];
+
+      $scope.team2_player1 = $scope.lastMatch.goals[team2_player1];
+      $scope.team2_player2 = $scope.lastMatch.goals[team2_player2];
+
     }
 
   },true);

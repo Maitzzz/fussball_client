@@ -27,4 +27,8 @@ app.service('testService', function ($http) {
   this.getTempData = function() {
     return $http.get('http://fussball.mait.fenomen.ee/test');
   }
+
+  this.startDraw = function() {
+    return $http.get(api + 'start-draw');
+  }
 });
