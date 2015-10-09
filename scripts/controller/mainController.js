@@ -1,14 +1,14 @@
 /**
  * Created by mait on 13.09.15.
  */
-app.controller('mainController', function ($scope, appData, testService, $location) {
+app.controller('mainController', function ($scope, testService, $location, myService) {
   $scope.testText = 'Test Text';
   $scope.drawGame = function() {
-    console.log('11321321312dasdad')
     testService.startDraw().then(function(rt) {
-      console.log('dasdad')
       $location.path('timer');
-    })
+    }).catch(function(err) {
+      myService.errorHandler(err.data)
+    });
   }
 });
 
@@ -16,7 +16,7 @@ app.controller('homeController', function ($scope, appData) {
 
   $scope.login = function () {
     testService.login().then(function (res) {
-      console.log(res);
+
     });
   };
 });
@@ -70,7 +70,6 @@ app.run(function ($rootScope, $websocket, appData, myService) {
     })
 
     .$on('$message', function (message) {
-      console.log(message);
       switch (message.type) {
         case 'status':
           appData.setStatus(message.status);
@@ -157,7 +156,6 @@ app.controller('timerController', function ($scope, appData, myService, $locatio
       }
     },true);
 
-
   $scope.$watch(function () {
     return appData.getTimerData();
   }, function (status, oldValue) {
@@ -199,7 +197,7 @@ app.controller('gameController', function ($scope, appData, myService, $location
 
     if (status.matches != undefined) {
       $scope.lastMatch = status.matches[status.matches.length - 1];
-      console.log($scope.lastMatch)
+
       $scope.team1_player1 = $scope.lastMatch.goals[team1_player1];
       $scope.team1_player2 = $scope.lastMatch.goals[team1_player2];
 
@@ -241,8 +239,11 @@ app.factory('appData', function () {
 app.factory('myService', function (toastr) {
   return {
     errorHandler: function(error) {
-      switch (error.error_type) {
+      switch (error) {
         case 'not_enough_players':
+          toastr.error(error.message);
+          break;
+        default :
           toastr.error(error.message);
           break;
       }
