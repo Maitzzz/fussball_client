@@ -20,15 +20,19 @@ app.service('testService', function ($http) {
     return $http.get(api + 'team/' + id);
   };
 
-  this.login = function() {
-    return $http.get(api + 'auth/google');
-  }
-
   this.getTempData = function() {
     return $http.get('http://fussball.mait.fenomen.ee/test');
-  }
+  };
+
+  this.login = function(user) {
+    return $http.post(api + 'auth', user);
+  };
 
   this.startDraw = function() {
     return $http.get(api + 'start-draw');
+  }
+
+  this.register = function(user) {
+    return $http.post(api + 'register', user);
   }
 });

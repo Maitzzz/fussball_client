@@ -14,11 +14,6 @@ app.controller('mainController', function ($scope, testService, $location, mySer
 
 app.controller('homeController', function ($scope, appData) {
 
-  $scope.login = function () {
-    testService.login().then(function (res) {
-
-    });
-  };
 });
 
 app.controller('gameController1', function ($scope, $routeParams, testService) {
@@ -62,7 +57,7 @@ app.controller('gamesController', function ($scope, testService) {
 
 app.run(function ($rootScope, $websocket, appData, myService) {
   var ws = $websocket.$new({
-    url: 'ws://127.0.0.1:4444'
+    url: 'ws://mait.fenomen.ee:4444'
   })
 
     .$on('$open', function () {
@@ -259,4 +254,33 @@ app.factory('myService', function (toastr) {
       }
     }
   };
+});
+
+app.controller('LoginController', ['$scope', 'testService', function($scope, testService) {
+  $scope.submit = function() {
+    console.log('test');
+    console.log($scope.user);
+
+    var user = $scope.user;
+
+    testService.login(user).then(function(data) {
+      console.log(data);
+    }).catch(function(data){
+
+    });
+  }
+}]);
+
+app.controller('registerController', function($scope) {
+
+
+});
+
+app.controller('RegisterFormController' , function($scope, testService) {
+  $scope.submit = function() {
+    var user = $scope.user;
+    testService.register(user).then(function(data) {
+      console.log(data);
+    });
+  }
 });

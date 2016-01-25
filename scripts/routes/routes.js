@@ -38,5 +38,10 @@ app.config(function ($routeProvider) {
       controller: 'timerController'
     })
 
+    .when('/register', {
+      templateUrl: 'views/register.html',
+      controller: 'registerController'
+    })
+
     .otherwise({redirectTo: '/home'})
 });
