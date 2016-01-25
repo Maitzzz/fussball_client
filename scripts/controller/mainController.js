@@ -1,6 +1,3 @@
-/**
- * Created by mait on 13.09.15.
- */
 app.controller('mainController', function ($scope, testService, $location, myService) {
   $scope.testText = 'Test Text';
   $scope.drawGame = function() {
@@ -284,3 +281,4 @@ app.controller('RegisterFormController' , function($scope, testService) {
     });
   }
 });
+

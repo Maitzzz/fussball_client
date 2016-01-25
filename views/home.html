@@ -3,7 +3,7 @@
   <div class="row">
       <h1>{{ home }}</h1>
       <div class="col-sm-4">
-        <form name="loginForm" novalidate ng-controller="RegisterFormController" ng-submit="submit()">
+        <form name="loginForm" novalidate ng-controller="LoginController" ng-submit="submit()">
           <div class="form-group">
             <label for="email">E-mail</label>
             <input ng-model="user.email" type="text" id="email" name="email" class="form-control" placeholder="Enter E-mail" autofocus="true" autocomplete="off" required>
