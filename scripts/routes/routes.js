@@ -7,6 +7,7 @@ app.config(function ($routeProvider) {
       templateUrl: 'views/home.html',
       controller: 'homeController'
     })
+/*
 
     .when('/games', {
       templateUrl: 'views/games.html',
@@ -38,6 +39,11 @@ app.config(function ($routeProvider) {
       controller: 'timerController'
     })
 
+    .when('/register', {
+      templateUrl: 'views/register.html',
+      controller: 'registerController'
+    })
+*/
     .when('/register', {
       templateUrl: 'views/register.html',
       controller: 'registerController'

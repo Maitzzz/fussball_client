@@ -1,6 +1,6 @@
-<html ng-app="testPage">
+<html ng-app="ufcApp">
 <head>
-  <title>Test</title>
+  <title>UFC</title>
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.min.css">
 </head>
@@ -12,10 +12,11 @@
 <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
 <script src="bower_components/angular-animate/angular-animate.min.js"></script>
 <script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
 <script src="scripts/module/module.js"></script>
 <script src="scripts/service/service.js"></script>
+<script src="scripts/service/authService.js"></script>
 <script src="scripts/routes/routes.js"></script>
-<script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
 <script src="scripts/controller/mainController.js"></script>
 
 <nav class="navbar navbar-default">
@@ -23,8 +24,6 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Main <span class="sr-only">(current)</span></a></li>
-        <li><a href="#games">Games</a></li>
-        <li><a href="" ng-click="drawGame()"> Start-Draw </a></li>
       </ul>
     </div>
     <!-- /.navbar-collapse -->

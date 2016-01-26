@@ -1,6 +1,6 @@
-app.service('authService', function ($http) {
+app.service('authService', function ($http, $window) {
   this.saveToken = function(token) {
-    $window.localStorage['jwtToken'] = token;
+    $window.localStorage.setItem('jwtToken', token);
   };
 
   this.removeToken = function () {
@@ -8,6 +8,6 @@ app.service('authService', function ($http) {
   };
 
   this.getToken = function() {
-    return $window.localStorage['jwtToken'];
+    return $window.localStorage.getItem('jwtToken');
   };
 });

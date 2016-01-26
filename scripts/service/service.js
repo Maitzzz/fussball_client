@@ -30,7 +30,7 @@ app.service('testService', function ($http) {
 
   this.startDraw = function() {
     return $http.get(api + 'start-draw');
-  }
+  };
 
   this.register = function(user) {
     return $http.post(api + 'register', user);
