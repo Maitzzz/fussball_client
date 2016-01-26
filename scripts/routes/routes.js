@@ -55,5 +55,11 @@ app.config(function ($routeProvider) {
       requireLogin: true
     })
 
+    .when('/profile', {
+      templateUrl: 'views/profile.html',
+      controller: 'profileController',
+      requireLogin: true
+    })
+
     .otherwise({redirectTo: '/home'})
 });

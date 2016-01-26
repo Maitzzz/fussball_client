@@ -298,6 +298,11 @@ app.controller('testController', function($scope) {
 
 });
 
+app.controller('profileController', function($scope) {
+
+
+});
+
 app.controller('RegisterFormController' , function($scope, testService, myService) {
   $scope.submit = function() {
     var user = $scope.user;
@@ -320,4 +325,6 @@ app.directive('register', function() {
     templateUrl: 'directives/register.html'
   };
 });
+
+
 
