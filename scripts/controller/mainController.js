@@ -52,8 +52,7 @@ app.controller('gamesController', function ($scope, testService) {
   };
 });
 
-app.run(function ($rootScope, $websocket, appData, myService, authService) {
-  console.log(authService.getToken());
+app.run(function ($rootScope, $websocket, appData, myService, authService, $location) {
   var ws = $websocket.$new({
     url: 'ws://mait.fenomen.ee:4444'
   })
@@ -86,6 +85,24 @@ app.run(function ($rootScope, $websocket, appData, myService, authService) {
 
       $rootScope.$apply();
     });
+
+  $rootScope.$on('$routeChangeStart', function (event, next) {
+    console.log()
+
+    if (!next.requireLogin) {
+      return;
+    }
+
+    if (!authService.getToken()) {
+      console.log('DENY');
+      event.preventDefault();
+      $location.path('/login');
+    }
+    else {
+      console.log('ALLOW');
+      $location.path('/home');
+    }
+  });
 });
 
 app.controller('testController', ['$scope', function ($scope) {
@@ -254,7 +271,7 @@ app.factory('myService', function (toastr) {
   };
 });
 
-app.controller('LoginController', ['$scope', 'authService', 'testService', function($scope, authService, testService) {
+app.controller('LoginController', ['$scope', 'authService', 'testService', 'myService', function($scope, authService, testService, myService) {
   $scope.submit = function() {
     console.log('test');
     console.log($scope.user);
@@ -266,12 +283,17 @@ app.controller('LoginController', ['$scope', 'authService', 'testService', funct
       authService.saveToken(data.data);
       console.log(data);
     }).catch(function(data){
-
+      myService.errorHandler({message: data.data.message})
     });
   }
 }]);
 
 app.controller('registerController', function($scope) {
+
+
+});
+
+app.controller('testController', function($scope) {
 
 
 });
@@ -298,3 +320,4 @@ app.directive('register', function() {
     templateUrl: 'directives/register.html'
   };
 });
+
