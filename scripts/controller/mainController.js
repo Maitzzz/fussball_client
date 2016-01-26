@@ -298,8 +298,12 @@ app.controller('testController', function($scope) {
 
 });
 
-app.controller('profileController', function($scope) {
+app.controller('profileController', function($scope, testService) {
+  testService.getUser(1).then(function(data) {
+    console.log(data.data);
+    $scope.profile = data.data;
 
+  })
 
 });
 

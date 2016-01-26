@@ -34,5 +34,10 @@ app.service('testService', function ($http) {
 
   this.register = function(user) {
     return $http.post(api + 'register', user);
+  };
+
+  this.getUser = function(is) {
+    return $http.get(api + 'user');
   }
+
 });
