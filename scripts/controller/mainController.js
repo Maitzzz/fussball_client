@@ -1,5 +1,8 @@
-app.controller('mainController', function ($scope, testService, $location, myService) {
-  $scope.testText = 'Test Text';
+app.controller('mainController', function ($scope, testService, $location, myService, authService) {
+  $scope.logout = function() {
+    authService.removeToken();
+  };
+
   $scope.drawGame = function() {
     testService.startDraw().then(function(rt) {
       $location.path('timer');
@@ -52,7 +55,12 @@ app.controller('gamesController', function ($scope, testService) {
   };
 });
 
-app.run(function ($rootScope, $websocket, appData, myService, authService, $location) {
+app.run(function ($rootScope, $websocket, appData, myService, authService, $location, $http) {
+
+  if (authService.getToken()) {
+    $http.defaults.headers.common.token = authService.getToken();
+  }
+
   var ws = $websocket.$new({
     url: 'ws://mait.fenomen.ee:4444'
   })
@@ -87,7 +95,6 @@ app.run(function ($rootScope, $websocket, appData, myService, authService, $loca
     });
 
   $rootScope.$on('$routeChangeStart', function (event, next) {
-    console.log()
 
     if (!next.requireLogin) {
       return;
@@ -97,10 +104,6 @@ app.run(function ($rootScope, $websocket, appData, myService, authService, $loca
       console.log('DENY');
       event.preventDefault();
       $location.path('/login');
-    }
-    else {
-      console.log('ALLOW');
-      $location.path('/home');
     }
   });
 });

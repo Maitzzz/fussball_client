@@ -13,25 +13,25 @@
 <script src="bower_components/angular-animate/angular-animate.min.js"></script>
 <script src="bower_components/angular-route/angular-route.min.js"></script>
 <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
 <script src="scripts/module/module.js"></script>
 <script src="scripts/service/service.js"></script>
-<script src="scripts/service/authService.js"></script>
 <script src="scripts/routes/routes.js"></script>
+<script src="scripts/service/authService.js"></script>
 <script src="scripts/controller/mainController.js"></script>
 
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Main <span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="#" >Main <span class="sr-only">(current)</span></a></li>
+        <li><a href="#" ng-click="logout()">Logout <span class="sr-only"></span></a></li>
       </ul>
     </div>
-    <!-- /.navbar-collapse -->
   </div>
-  <!-- /.container-fluid -->
 </nav>
 
-<div class="content content-body" ng-view>
+<div ui-view></div>
 </div>
 </body>
 </html>

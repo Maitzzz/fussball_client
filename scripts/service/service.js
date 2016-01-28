@@ -1,4 +1,5 @@
 var api = 'http://fussball.mait.fenomen.ee/';
+
 app.service('testService', function ($http) {
   this.getGames = function () {
     return $http.get(api + 'games');
