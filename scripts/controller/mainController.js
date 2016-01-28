@@ -1,4 +1,4 @@
-app.controller('mainController', function ($scope, testService, $location, myService, authService) {
+app.controller('mainController', function ($scope, testService, $location, myService, authService, $state, appData) {
   $scope.logout = function() {
     authService.removeToken();
   };
@@ -13,7 +13,6 @@ app.controller('mainController', function ($scope, testService, $location, mySer
 });
 
 app.controller('homeController', function ($scope, appData) {
-
 });
 
 app.controller('gameController1', function ($scope, $routeParams, testService) {
@@ -70,6 +69,7 @@ app.run(function ($rootScope, $websocket, appData, myService, authService, $stat
     })
 
     .$on('$message', function (message) {
+      console.log(message)
       switch (message.type) {
         case 'status':
           appData.setStatus(message.status);
@@ -96,7 +96,6 @@ app.run(function ($rootScope, $websocket, appData, myService, authService, $stat
 
   $rootScope.$on('$stateChangeStart', function (event, next) {
 
-    console.log(event);
     if (!next.requireLogin) {
       return;
     }
@@ -188,16 +187,20 @@ app.controller('playersController', function ($scope, appData, myService, $locat
 
 });
 
-app.controller('gameController', function ($scope, appData, myService, $location, testService) {
+app.controller('gameController', function ($scope, appData, myService, $state, testService) {
   $scope.$watch(function () {
     return appData.getStatus();
   }, function (status, oldValue) {
-    if ('/' + status.status != $location.path()) {
-      $location.path(status);
+    console.log('statis')
+    console.log(status)
+    console.log('current statis')
+    console.log($state.current);
+    if (status.status != $state.current) {
+      $state.go(status.status);
     }
   },true);
 
-  $scope.$watch(function () {
+/*  $scope.$watch(function () {
     return appData.getGameData();
   }, function (status, oldValue) {
     $scope.game = status.game;
@@ -217,10 +220,9 @@ app.controller('gameController', function ($scope, appData, myService, $location
 
       $scope.team2_player1 = $scope.lastMatch.goals[team2_player1];
       $scope.team2_player2 = $scope.lastMatch.goals[team2_player2];
-
     }
 
-  },true);
+  },true);*/
 });
 
 app.factory('appData', function () {
@@ -306,9 +308,7 @@ app.controller('profileController', function($scope, testService) {
   testService.getUser(1).then(function(data) {
     console.log(data.data);
     $scope.profile = data.data;
-
   })
-
 });
 
 app.controller('RegisterFormController' , function($scope, testService, myService) {

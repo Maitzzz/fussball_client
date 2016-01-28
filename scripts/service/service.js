@@ -5,6 +5,10 @@ app.service('testService', function ($http) {
     return $http.get(api + 'games');
   };
 
+  this.currentGame = function() {
+    return $http.get(api + 'game');
+  };
+
   this.addGame = function(players) {
     return $http.post(api + 'newgame', players);
   };

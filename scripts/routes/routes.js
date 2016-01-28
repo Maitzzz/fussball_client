@@ -15,6 +15,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   .state('game', {
     url: '/game',
     templateUrl: 'views/game.html',
+    controller: 'gameController',
     requireLogin: true
   })
 
