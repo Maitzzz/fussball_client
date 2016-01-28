@@ -5,38 +5,48 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/home');
 
   $stateProvider
-    .state('home', {
-      url: '/home',
-      templateUrl: 'views/home.html'
-    });
-/*
-    .when('/home', {
-      templateUrl: 'views/home.html',
-      controller: 'homeController'
-    })
 
-    .when('/register', {
-      templateUrl: 'views/register.html',
-      controller: 'registerController'
-    })
+  .state('home', {
+    url: '/home',
+    templateUrl: 'views/home.html',
+    controller: 'homeController'
+  })
 
-    .when('/test', {
-      templateUrl: 'views/test.html',
-      controller: 'testController',
-      requireLogin: true
-    })
+  .state('game', {
+    url: '/game',
+    templateUrl: 'views/game.html',
+    requireLogin: true
+  })
 
-    .when('/profile', {
-      templateUrl: 'views/profile.html',
-      controller: 'profileController',
-      requireLogin: true
-    })
+  .state('game.draw', {
+    url: '/game',
+    templateUrl: 'views/game.html'
+  })
 
-    .when('/login', {
-      templateUrl: 'views/login .html',
-      controller: 'loginController',
-      requireLogin: true
-    })
+  .state('game.timer', {
+    url: '/game',
+    templateUrl: 'views/game.html'
+  })
 
-    .otherwise({redirectTo: '/home'})*/
+  .state('game.start', {
+    url: '/game',
+    templateUrl: 'views/game.html'
+  })
+
+  .state('register', {
+    url: '/register',
+    templateUrl: 'views/register.html'
+  })
+
+  .state('login', {
+    url: '/login',
+    templateUrl: 'views/login.html'
+  })
+
+  .state('profile', {
+    url: '/profile',
+    templateUrl: 'views/profile.html',
+    controller: 'profileController',
+    requireLogin: true
+  });
 });

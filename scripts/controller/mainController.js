@@ -55,7 +55,7 @@ app.controller('gamesController', function ($scope, testService) {
   };
 });
 
-app.run(function ($rootScope, $websocket, appData, myService, authService, $location, $http) {
+app.run(function ($rootScope, $websocket, appData, myService, authService, $state, $http) {
 
   if (authService.getToken()) {
     $http.defaults.headers.common.token = authService.getToken();
@@ -94,16 +94,17 @@ app.run(function ($rootScope, $websocket, appData, myService, authService, $loca
       $rootScope.$apply();
     });
 
-  $rootScope.$on('$routeChangeStart', function (event, next) {
+  $rootScope.$on('$stateChangeStart', function (event, next) {
 
+    console.log(event);
     if (!next.requireLogin) {
       return;
     }
 
     if (!authService.getToken()) {
-      console.log('DENY');
       event.preventDefault();
-      $location.path('/login');
+      console.log('DENY');
+       $state.go('login');
     }
   });
 });
