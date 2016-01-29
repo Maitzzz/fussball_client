@@ -19,18 +19,19 @@ app.config(function($stateProvider, $urlRouterProvider) {
     requireLogin: true
   })
 
-  .state('game.draw', {
-    url: '/game',
-    templateUrl: 'views/game.html'
-  })
-
   .state('game.timer', {
-    url: '/game',
+    url: '',
     templateUrl: 'views/game.html'
   })
 
-  .state('game.start', {
-    url: '/game',
+  .state('players', {
+    url: '/players',
+    templateUrl: 'views/players.html',
+    controller: 'playersController'
+  })
+
+  .state('start', {
+    url: '',
     templateUrl: 'views/game.html'
   })
 
@@ -42,6 +43,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
   .state('login', {
     url: '/login',
     templateUrl: 'views/login.html'
+  })
+
+  .state('timer', {
+    url: '/timer',
+    templateUrl: 'views/timer.html',
+    controller: 'timerController'
   })
 
   .state('profile', {

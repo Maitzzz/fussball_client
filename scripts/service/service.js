@@ -17,6 +17,10 @@ app.service('testService', function ($http) {
     return $http.get(api + 'game/' + id);
   };
 
+  this.getPlayers = function() {
+    return $http.get(api + 'players');
+  };
+
   this.addGoal = function(goal) {
     return $http.post(api + 'addgoal', goal);
   };

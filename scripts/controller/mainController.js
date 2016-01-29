@@ -160,14 +160,14 @@ app.controller('MyCtrl', ['$scope', 'FileUploader', function ($scope, FileUpload
   };
 }]);
 
-app.controller('timerController', function ($scope, appData, myService, $location) {
+app.controller('timerController', function ($scope, appData, myService, $state) {
   $scope.$watch(function () {
-      return appData.getStatus(); }
-    , function (status, oldValue) {
-      if ('/' + status != $location.path()) {
-        $location.path(status);
-      }
-    },true);
+    return appData.getStatus();
+  }, function (status, oldValue) {
+    if (status != $state.current.name) {
+      $state.go(status);
+    }
+  },true);
 
   $scope.$watch(function () {
     return appData.getTimerData();
@@ -176,27 +176,30 @@ app.controller('timerController', function ($scope, appData, myService, $locatio
   },true);
 });
 
-app.controller('playersController', function ($scope, appData, myService, $location, toastr) {
+app.controller('playersController', function ($scope, appData, myService, $state, testService) {
   $scope.$watch(function () {
-    return appData.getStatus(); }
-    , function (status, oldValue) {
-    if ('/' + status != $location.path()) {
-      $location.path(status);
+    return appData.getStatus();
+  }, function (status, oldValue) {
+    if (status != $state.current.name) {
+      $state.go(status);
     }
   },true);
+
+  testService.getPlayers().then(function(data) {
+    $scope.players = data.data;
+  });
 
 });
 
 app.controller('gameController', function ($scope, appData, myService, $state, testService) {
+
   $scope.$watch(function () {
     return appData.getStatus();
   }, function (status, oldValue) {
-    console.log('statis')
-    console.log(status)
-    console.log('current statis')
-    console.log($state.current);
-    if (status.status != $state.current) {
-      $state.go(status.status);
+    console.log(status + ' status');
+    console.log($state.current.name + ' dasdas')
+    if (status != $state.current.name) {
+      $state.go(status);
     }
   },true);
 
