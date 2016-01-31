@@ -22,6 +22,7 @@ app.service('testService', function ($http) {
   };
 
   this.addGoal = function(goal) {
+    console.log(goal)
     return $http.post(api + 'addgoal', goal);
   };
 

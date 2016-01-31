@@ -56,6 +56,7 @@ app.controller('gamesController', function ($scope, testService) {
 
 app.run(function ($rootScope, $websocket, appData, myService, authService, $state, $http) {
 
+  console.log(authService.getToken());
   if (authService.getToken()) {
     $http.defaults.headers.common.token = authService.getToken();
   }
@@ -69,7 +70,6 @@ app.run(function ($rootScope, $websocket, appData, myService, authService, $stat
     })
 
     .$on('$message', function (message) {
-      console.log(message)
       switch (message.type) {
         case 'status':
           appData.setStatus(message.status);
@@ -196,36 +196,54 @@ app.controller('gameController', function ($scope, appData, myService, $state, t
   $scope.$watch(function () {
     return appData.getStatus();
   }, function (status, oldValue) {
-    console.log(status + ' status');
-    console.log($state.current.name + ' dasdas')
     if (status != $state.current.name) {
       $state.go(status);
     }
   },true);
 
-/*  $scope.$watch(function () {
+  $scope.$watch(function () {
     return appData.getGameData();
   }, function (status, oldValue) {
     $scope.game = status.game;
-    $scope.matches = status.matches;
+    $scope.matches= status.matches;
 
-    var team1_player1 = $scope.game.team1.data.player_one.user_id;
-    var team1_player2 = $scope.game.team1.data.player_two.user_id;
+    console.log(status.matches)
 
-    var team2_player1 = $scope.game.team2.data.player_one.user_id;
-    var team2_player2 = $scope.game.team2.data.player_two.user_id;
+    $scope.team1 = $scope.game.team1;
+    $scope.team2 = $scope.game.team2;
 
-    if (status.matches != undefined) {
-      $scope.lastMatch = status.matches[status.matches.length - 1];
+    $scope.match = status.matches[status.matches.length -1];
 
-      $scope.team1_player1 = $scope.lastMatch.goals[team1_player1];
-      $scope.team1_player2 = $scope.lastMatch.goals[team1_player2];
+    //Team 1 goals:
 
-      $scope.team2_player1 = $scope.lastMatch.goals[team2_player1];
-      $scope.team2_player2 = $scope.lastMatch.goals[team2_player2];
-    }
+    $scope.team1.player1 = $scope.match.goals[$scope.team1.data.player_one.user_id];
+    $scope.team1.player2 = $scope.match.goals[$scope.team1.data.player_two.user_id];
 
-  },true);*/
+    $scope.team1.goals = $scope.team1.player2 + $scope.team1.player1;
+    $scope.team2.goals = $scope.team2.player2 + $scope.team2.player1;
+
+    $scope.team2.player1 = $scope.match.goals[$scope.team2.data.player_one.user_id];
+    $scope.team2.player2 = $scope.match.goals[$scope.team2.data.player_two.user_id];
+
+  },true);
+
+  $scope.addGoal = function (team, owner) {
+    var goal = {
+      team: team,
+      owner: owner
+    };
+
+    testService.addGoal(goal).then(function (data) {
+      getGame($scope.game.id)
+    })
+  }
+
+  function getGame(id) {
+    testService.getGame(id).then(function (game) {
+      $scope.game = game.data.game;
+      $scope.matches = game.data.matches;
+    });
+  }
 });
 
 app.factory('appData', function () {

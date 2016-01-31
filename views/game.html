@@ -1,1 +1,40 @@
-<h1>fafa</h1>
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-8 well">
+            <div class="col-md-6">
+                TEAM : {{team1.id}}
+                <div class="row ">
+                    <img src="../images/person-placeholder.jpg" alt="Player" style="width: 50%;">
+                    <p>Name Name</p>
+                    <button ng-click="addGoal(team1.id, team1.data.player_one.user_id)">Scored!({{team1.data.player_one.user_id}})</button>
+                    GOALS: {{ team1.player1 }}
+                </div>
+                <h1>{{team1.goals}}</h1>
+                <div class="row">
+                    <img src="../images/person-placeholder.jpg" alt="Player" style="width: 50%;">
+                    <p>Name Name</p>
+                    <button ng-click="addGoal(team1.id, team1.data.player_two.user_id)">Scored!({{team1.data.player_two.user_id}}) </button>
+                    GOALS: {{ team1.player2 }}
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                TEAM: {{team2.id}}
+                <div class="row">
+                    <img src="../images/person-placeholder.jpg" alt="Player" style="width: 50%;">
+                    <p class="pull-right">Name Name</p>
+                    <button ng-click="addGoal(team2.id, team2.data.player_one.user_id)">Scored!({{team2.data.player_one.user_id}})</button>
+                    vGOALS: {{ team2.player1 }}
+                </div>
+                <h1>{{team2.goals}}</h1>
+                <div class="row">
+                    <img src="../images/person-placeholder.jpg" alt="Player" style="width: 50%;">
+                    <p>Name Name</p>
+                    <button ng-click="addGoal(team2.id, team2.data.player_two.user_id)">Scored!({{team2.data.player_two.user_id}})</button>
+                    GOALS: {{ team2.player2 }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
