@@ -56,7 +56,6 @@ app.controller('gamesController', function ($scope, testService) {
 
 app.run(function ($rootScope, $websocket, appData, myService, authService, $state, $http) {
 
-  console.log(authService.getToken());
   if (authService.getToken()) {
     $http.defaults.headers.common.token = authService.getToken();
   }
@@ -204,10 +203,12 @@ app.controller('gameController', function ($scope, appData, myService, $state, t
   $scope.$watch(function () {
     return appData.getGameData();
   }, function (status, oldValue) {
+    if (status.game == undefined) {
+      return;
+    }
+
     $scope.game = status.game;
     $scope.matches= status.matches;
-
-    console.log(status.matches)
 
     $scope.team1 = $scope.game.team1;
     $scope.team2 = $scope.game.team2;
@@ -215,7 +216,6 @@ app.controller('gameController', function ($scope, appData, myService, $state, t
     $scope.match = status.matches[status.matches.length -1];
 
     //Team 1 goals:
-
     $scope.team1.player1 = $scope.match.goals[$scope.team1.data.player_one.user_id];
     $scope.team1.player2 = $scope.match.goals[$scope.team1.data.player_two.user_id];
 
@@ -236,7 +236,7 @@ app.controller('gameController', function ($scope, appData, myService, $state, t
     testService.addGoal(goal).then(function (data) {
       getGame($scope.game.id)
     })
-  }
+  };
 
   function getGame(id) {
     testService.getGame(id).then(function (game) {
@@ -317,11 +317,13 @@ app.controller('LoginController', ['$scope', 'authService', 'testService', 'mySe
 
 app.controller('registerController', function($scope) {
 
-
 });
 
 app.controller('testController', function($scope) {
 
+});
+
+app.controller('profileFormController', function($scope) {
 
 });
 

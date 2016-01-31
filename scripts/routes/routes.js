@@ -30,11 +30,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
     controller: 'playersController'
   })
 
-  .state('start', {
-    url: '',
-    templateUrl: 'views/game.html'
-  })
-
   .state('register', {
     url: '/register',
     templateUrl: 'views/register.html'
