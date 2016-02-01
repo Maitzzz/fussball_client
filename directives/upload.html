@@ -4,14 +4,9 @@
 
         <div ng-show="uploader.isHTML5">
             <input type="file" nv-file-select="" uploader="uploader" />
-
-            <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
-                Base drop zone
-            </div>
         </div>
     </div>
     <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
         <span class="glyphicon glyphicon-upload"></span> Upload
     </button>
 </div>
-

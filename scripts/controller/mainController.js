@@ -95,6 +95,11 @@ app.run(function ($rootScope, $websocket, appData, myService, authService, $stat
 
   $rootScope.$on('$stateChangeStart', function (event, next) {
 
+    if ((next.url == '/login' || next.url == '/register') && authService.getToken()) {
+      event.preventDefault();
+      $state.go('home');
+    }
+
     if (!next.requireLogin) {
       return;
     }
@@ -104,6 +109,7 @@ app.run(function ($rootScope, $websocket, appData, myService, authService, $stat
       console.log('DENY');
        $state.go('login');
     }
+
   });
 });
 
@@ -115,12 +121,11 @@ app.controller('testController', ['$scope', function ($scope) {
   };
 }]);
 
-app.controller('MyCtrl', ['$scope', 'FileUploader', function ($scope, FileUploader) {
-  var tet = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5lZSIsInR5cGUiOjIsImFjdGl2ZSI6dHJ1ZSwicGFzc3dvcmQiOiJzaGExJDI3MWJmMTZhJDEkNWQ4Y2M3Y2M3YTMxZTYzYjJkMGY5ZTFhODZmZmIwYzdhYmMwODBkZiIsImltYWdlIjpudWxsLCJjcmVhdGVkQXQiOiIyMDE1LTEwLTA0VDA5OjEwOjUxLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDE1LTEwLTA0VDA5OjEwOjUxLjAwMFoifQ.jBUjgfSgXHzvMDdnhg0E7lydjPOYHvhbxfikiIytpL4';
+app.controller('MyCtrl', ['$scope', 'FileUploader', 'authService', function ($scope, FileUploader, authService) {
   var uploader = $scope.uploader = new FileUploader({
     url: 'http://fussball.mait.fenomen.ee/upload',
     headers: {
-      'x-access-token': tet
+      'token': authService.getToken()
     }
   });
 
@@ -348,6 +353,12 @@ app.controller('RegisterFormController' , function($scope, testService, myServic
 app.directive('login', function() {
   return {
     templateUrl: 'directives/login.html'
+  };
+});
+
+app.directive('upload', function() {
+  return {
+    templateUrl: 'directives/upload.html'
   };
 });
 

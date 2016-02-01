@@ -12,6 +12,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
     controller: 'homeController'
   })
 
+  .state('test', {
+    url: '/test',
+    templateUrl: 'views/test.html',
+    controller: 'testController'
+  })
+
   .state('game', {
     url: '/game',
     templateUrl: 'views/game.html',
