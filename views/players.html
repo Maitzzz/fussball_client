@@ -2,15 +2,20 @@
     <div class="col-md-8 col-md-offset-2">
         <div class="row">
             <h1>Players</h1>
-            <div class="col-md-3" ng-repeat="player in players">
-                <p> {{ player.name }} </p>
-                <img ng-src="{{player.file.path}}" alt="{{player.name}}" style="width: 100%;"></a>
-            </div>
+            <form name="loginForm" novalidate ng-controller="playersFormController" ng-submit="submit()">
+                <div class="col-md-3" ng-repeat="(id, player) in players">
+                    <p> {{ player.name }} </p>
+                    <img ng-src="{{player.file.path}}" alt="{{player.name}}" style="width: 100%;"></a>
+                    <input type="checkbox" ng-model="player.selected">
+                </div>
+                <div class="row">
+                    <button class="btn btn-primary">DRAWWW!</button>
+                </div>
+            </form>
         </div>
+
         <div class="row">
             <button ng-click="drawGame()"> PLAY</button>
         </div>
     </div>
 </div>
-
-

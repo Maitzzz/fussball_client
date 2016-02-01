@@ -189,7 +189,7 @@ app.controller('timerController', function ($scope, appData, myService, $state, 
   $scope.add = function() {
     testService.addDraw(false).then(function(ret) {
       console.log(ret)
-      myService.messageHandler({type: 'message' , message: ret.data.message});;
+      myService.messageHandler({type: 'message' , message: ret.data.message});
     })
   }
 });
@@ -350,6 +350,30 @@ app.controller('profileFormController', function($scope) {
 
 });
 
+app.controller('playersFormController', function ($scope, myService, testService) {
+
+  $scope.submit = function () {
+    var inDraw = [];
+
+    for (var i = 0; i < $scope.players.length; i++) {
+      var user = $scope.players[i];
+      if (user.selected) {
+        inDraw.push(user.user_id);
+      }
+    }
+
+    if (inDraw.length < 4) {
+      myService.errorHandler({type: 'error' , message: 'Users must be at least 4'});
+    } else {
+      console.log(inDraw)
+      testService.createGame(inDraw).then(function(data) {
+        console.log(data);
+      });
+    }
+  }
+
+});
+
 app.controller('profileController', function($scope, testService) {
   testService.getUser(1).then(function(data) {
     console.log(data.data);
@@ -366,6 +390,7 @@ app.controller('RegisterFormController' , function($scope, testService, myServic
       }
     });
   }
+
 });
 
 app.directive('login', function() {

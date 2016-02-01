@@ -53,4 +53,8 @@ app.service('testService', function ($http) {
   this.addDraw = function(playerId) {
     return $http.post(api + 'add-player', {player: playerId});
   };
+
+  this.createGame = function(players) {
+    return $http.post(api + 'newgame', {"players" : players});
+  };
 });
