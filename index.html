@@ -20,12 +20,17 @@
 <script src="scripts/service/authService.js"></script>
 <script src="scripts/controller/mainController.js"></script>
 
+
+<!--todo menu directive-->
+
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav" ng-switch="user">
         <li class="active"><a href="#" >Main <span class="sr-only">(current)</span></a></li>
-        <li><a href="#" ng-click="logout()">Logout <span class="sr-only"></span></a></li>
+        <li ng-switch-default><a href="#login">Login</a></li>
+
+        <li ng-switch-when="true"><a href="#" ng-click="logout()">Logout <span class="sr-only"></span></a></li>
         <li><a href="#game">Game <span class="sr-only"></span></a></li>
       </ul>
     </div>

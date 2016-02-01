@@ -1,6 +1,13 @@
 app.controller('mainController', function ($scope, testService, $location, myService, authService, $state, appData) {
+  $scope.user = false;
+
+  if (authService.getToken()) {
+    $scope.user = true;
+  }
+
   $scope.logout = function() {
     authService.removeToken();
+    $state.go('home');
   };
 
   $scope.drawGame = function() {
@@ -75,7 +82,7 @@ app.run(function ($rootScope, $websocket, appData, myService, authService, $stat
           break;
 
         case 'timer_data':
-          appData.setTimerData(message.time_left);
+          appData.setTimerData(message);
           break;
 
         case 'game_data':
@@ -164,7 +171,7 @@ app.controller('MyCtrl', ['$scope', 'FileUploader', 'authService', function ($sc
   };
 }]);
 
-app.controller('timerController', function ($scope, appData, myService, $state) {
+app.controller('timerController', function ($scope, appData, myService, $state, testService) {
   $scope.$watch(function () {
     return appData.getStatus();
   }, function (status, oldValue) {
@@ -178,6 +185,13 @@ app.controller('timerController', function ($scope, appData, myService, $state) 
   }, function (status, oldValue) {
     $scope.timer = status;
   },true);
+
+  $scope.add = function() {
+    testService.addDraw(false).then(function(ret) {
+      console.log(ret)
+      myService.messageHandler({type: 'message' , message: ret.data.message});;
+    })
+  }
 });
 
 app.controller('playersController', function ($scope, appData, myService, $state, testService) {
@@ -190,7 +204,14 @@ app.controller('playersController', function ($scope, appData, myService, $state
   },true);
 
   testService.getPlayers().then(function(data) {
-    $scope.players = data.data;
+    for (var i = 0; i < data.data.length; i++) {
+      if (!data.data[i].file) {
+        data.data[i].file = {};
+        data.data[i].file.path = 'https://www.bankofenglandearlycareers.co.uk/media/2747/blank-profile.jpg'
+      }
+
+      $scope.players = data.data;
+    }
   });
 
 });
@@ -303,17 +324,14 @@ app.factory('myService', function (toastr) {
   };
 });
 
-app.controller('LoginController', ['$scope', 'authService', 'testService', 'myService', function($scope, authService, testService, myService) {
+app.controller('LoginController', ['$scope', 'authService', 'testService', 'myService', '$state', function($scope, authService, testService, myService, $state) {
   $scope.submit = function() {
-    console.log('test');
-    console.log($scope.user);
-
     var user = $scope.user;
 
     testService.login(user).then(function(data) {
       console.log(data);
       authService.saveToken(data.data);
-      console.log(data);
+      $state.go('game')
     }).catch(function(data){
       myService.errorHandler({message: data.data.message})
     });

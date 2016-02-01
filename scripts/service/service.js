@@ -50,4 +50,7 @@ app.service('testService', function ($http) {
     return $http.get(api + 'user');
   }
 
+  this.addDraw = function(playerId) {
+    return $http.post(api + 'add-player', {player: playerId});
+  };
 });
