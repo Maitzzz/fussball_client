@@ -30,6 +30,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
     templateUrl: 'views/game.html'
   })
 
+  .state('games', {
+    url: '/games',
+    templateUrl: 'views/games.html',
+    controller: 'gamesController'
+  })
+
   .state('players', {
     url: '/players',
     templateUrl: 'views/players.html',
@@ -52,10 +58,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
     controller: 'timerController'
   })
 
+
+  .state('score', {
+    url: '/score/:period',
+    templateUrl: 'views/score.html',
+    controller: 'scoreController'
+  })
+
   .state('profile', {
     url: '/profile',
     templateUrl: 'views/profile.html',
     controller: 'profileController',
     requireLogin: true
   });
+
 });

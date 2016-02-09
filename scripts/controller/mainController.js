@@ -19,6 +19,13 @@ app.controller('mainController', function ($scope, testService, $location, mySer
   }
 });
 
+
+app.service('menuService', function() {
+  var data = this;
+
+  data.test = "Def"
+});
+
 app.controller('homeController', function ($scope, appData) {
 });
 
@@ -45,7 +52,11 @@ app.controller('gameController1', function ($scope, $routeParams, testService) {
   }
 });
 
-app.controller('gamesController', function ($scope, testService) {
+app.controller('menuController', function ($scope, testService, menuService) {
+  $scope.data = menuService;
+});
+
+app.controller('gamesController', function ($scope, testService, menuService) {
   getGames();
 
   function getGames() {
@@ -53,12 +64,6 @@ app.controller('gamesController', function ($scope, testService) {
       $scope.games = games.data;
     });
   }
-
-  $scope.newGame = function () {
-    testService.addGame().then(function (game) {
-      getGames();
-    });
-  };
 });
 
 app.run(function ($rootScope, $websocket, appData, myService, authService, $state, $http) {
@@ -116,7 +121,6 @@ app.run(function ($rootScope, $websocket, appData, myService, authService, $stat
       console.log('DENY');
        $state.go('login');
     }
-
   });
 });
 
@@ -374,11 +378,18 @@ app.controller('playersFormController', function ($scope, myService, testService
 
 });
 
+app.controller('scoreController', function($scope, testService,$stateParams){
+  var period = $stateParams.period;
+ testService.getScore(period).then(function(data) {
+   console.log(data.data)
+   $scope.scores = data.data;
+ });
+});
+
 app.controller('profileController', function($scope, testService) {
-  testService.getUser(1).then(function(data) {
-    console.log(data.data);
+  testService.getUser().then(function(data) {
     $scope.profile = data.data;
-  })
+  });
 });
 
 app.controller('RegisterFormController' , function($scope, testService, myService) {
@@ -390,7 +401,6 @@ app.controller('RegisterFormController' , function($scope, testService, myServic
       }
     });
   }
-
 });
 
 app.directive('login', function() {
@@ -410,6 +420,4 @@ app.directive('register', function() {
     templateUrl: 'directives/register.html'
   };
 });
-
-
 

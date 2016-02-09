@@ -26,14 +26,6 @@ app.service('testService', function ($http) {
     return $http.post(api + 'addgoal', goal);
   };
 
-  this.getTeam = function(id) {
-    return $http.get(api + 'team/' + id);
-  };
-
-  this.getTempData = function() {
-    return $http.get('http://fussball.mait.fenomen.ee/test');
-  };
-
   this.login = function(user) {
     return $http.post(api + 'auth', user);
   };
@@ -46,7 +38,7 @@ app.service('testService', function ($http) {
     return $http.post(api + 'register', user);
   };
 
-  this.getUser = function(is) {
+  this.getUser = function() {
     return $http.get(api + 'user');
   }
 
@@ -57,4 +49,8 @@ app.service('testService', function ($http) {
   this.createGame = function(players) {
     return $http.post(api + 'newgame', {"players" : players});
   };
+
+  this.getScore = function(period) {
+    return $http.post(api + 'score', {"period" : period});
+  }
 });
